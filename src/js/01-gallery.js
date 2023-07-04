@@ -1,32 +1,32 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 // Add imports above this line
 import { galleryItems } from './gallery-items';
-import "simplelightbox/dist/simple-lightbox.min.css";
+// Change code below this line
 
-const galleryContainerEl = document.querySelector(".gallery");
-const imagesMarkup = createItemsMarkup(galleryItems);
-galleryContainerEl.insertAdjacentHTML("beforeend", imagesMarkup);
+const galleryEl = document.querySelector('.gallery');
 
-function createItemsMarkup(item) {
-  return galleryItems
-    .map(({ preview, original, description }) => {
-      return `<ul class="gallery">
-      <li>
-      <a class="gallery__item" href="${original}">
-        <img
-          class="gallery__image"
-          src="${preview}"          
-          alt="${description}"
-        />
-      </a>
-      </li>
-     
-    </ul>`;
-    })
-    .join("");
-}
+const galleryMarkup = galleryItems
+  .map(
+    ({ preview, original, description }) =>
+      `<a class="gallery__item" href="${original}">
+      <img
+         class="gallery__image"
+         src="${preview}"
+         alt="${description}"
+    />
+  </a>`
+  )
+  .join('');
 
-const lightbox = new SimpleLightbox(".gallery a", {
-  captionsData: "alt",
+galleryEl.insertAdjacentHTML('beforeend', galleryMarkup);
+
+new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
   captionDelay: 250,
-  captionType: "alt",
 });
+
+console.log(galleryItems);
